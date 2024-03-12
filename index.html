@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Taş Kağıt Makas</title>
+</head>
+<body>
+
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <h1>Taş Kağıt Makas</h1>
+    </div>
+
+    <script>
+
+        const secenekler = {
+            TAS: "taş",
+            KAGIT: "kağıt",
+            MAKAS: "makas"
+        }
+
+        const sonuclar = {
+            KAZANDIN: "Kazandın!",
+            KAYBETTIN: "Kaybettin!",
+            BERABERE: "Berabere!"
+        }
+
+        const anahtarDizisi = Object.keys(secenekler)
+
+        const TuruOyna = (oyuncuSecimi, bilgisayarSecimi) => {
+            switch(oyuncuSecimi) {
+                case secenekler.TAS: 
+                    if(bilgisayarSecimi === secenekler.MAKAS) return sonuclar.KAZANDIN
+                    else if(bilgisayarSecimi === secenekler.KAGIT) return sonuclar.KAYBETTIN
+                    else return sonuclar.BERABERE
+                case secenekler.KAGIT:
+                    if(bilgisayarSecimi === secenekler.TAS) return sonuclar.KAZANDIN
+                    else if(bilgisayarSecimi === secenekler.MAKAS) return sonuclar.KAYBETTIN
+                    else return sonuclar.BERABERE
+                case secenekler.MAKAS:
+                    if(bilgisayarSecimi === secenekler.KAGIT) return sonuclar.KAZANDIN
+                    else if(bilgisayarSecimi === secenekler.TAS) return sonuclar.KAYBETTIN
+                    else return sonuclar.BERABERE
+            }
+        }
+
+        const bilgisayarSeciminiOlustur = () => {
+            return secenekler[anahtarDizisi[Math.floor(Math.random() * anahtarDizisi.length)]]
+        }
+
+        const Oyun = () => {
+            let oyuncuSkoru = 0
+            let bilgisayarSkoru = 0
+
+            while(true) {
+                if(oyuncuSkoru === 3 || bilgisayarSkoru === 3) break
+                const oyuncuSecimi = prompt("Taş, Kağıt, Makas ?").toLowerCase()
+                const bilgisayarSecimi = bilgisayarSeciminiOlustur()
+                const turSonucu = TuruOyna(oyuncuSecimi, bilgisayarSecimi)
+                if(turSonucu === sonuclar.KAZANDIN) oyuncuSkoru++
+                else if(turSonucu === sonuclar.KAYBETTIN) bilgisayarSkoru++
+                alert(`${turSonucu} \n Oyuncu: ${oyuncuSkoru} , Bilgisayar: ${bilgisayarSkoru}.`)
+            }
+
+            alert(`Kazanan : ${oyuncuSkoru > bilgisayarSkoru ? "Oyuncu" : "Bilgisayar"}`)
+        }
+
+        Oyun()
+
+    </script>
+</body>
+</html>
